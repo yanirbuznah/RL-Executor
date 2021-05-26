@@ -1,0 +1,421 @@
+
+    (define (problem simple_maze)
+    (:domain  maze_food)
+    (:objects
+        
+	t9h
+	t9i
+	t9j
+	t9d
+	t9e
+	t9f
+	t9g
+	t9a
+	t9b
+	t9c
+	t0g
+	t0f
+	t0e
+	t0d
+	t0c
+	t0b
+	t0a
+	t0j
+	t0i
+	t0h
+	t8j
+	t8i
+	t8h
+	t8g
+	t8f
+	t8e
+	t8d
+	t8c
+	t8b
+	t8a
+	t7b
+	t7c
+	t7a
+	t7f
+	t7g
+	t7d
+	t7e
+	t7j
+	t7h
+	t7i
+	goal_tile0
+	t2i
+	t2h
+	t2j
+	t2a
+	t2c
+	t2b
+	t2e
+	t2d
+	t2g
+	t2f
+	t1d
+	t1e
+	t1f
+	t1g
+	t1a
+	t1b
+	t1c
+	t1h
+	t1i
+	t1j
+	t5h
+	t5i
+	t5j
+	t5a
+	t5b
+	t5c
+	t5d
+	t5e
+	t5f
+	t5g
+	start
+	t4j
+	t4i
+	t4h
+	t4c
+	t4b
+	t4a
+	t4g
+	t4f
+	t4e
+	t4d
+	t3j
+	t3h
+	t3i
+	t3f
+	t3g
+	t3d
+	t3e
+	t3b
+	t3c
+	t3a
+	person0
+	tile
+	food1
+	t6i
+	t6h
+	t6j
+	t6e
+	t6d
+	t6g
+	t6f
+	t6a
+	t6c
+	t6b)
+(:init
+	(north t5c t5b)
+	(north t2f t2e)
+	(north t4g t4f)
+	(north t9e t9d)
+	(north t7g t7f)
+	(north t9b t9a)
+	(north t8g t8f)
+	(north t6c t6b)
+	(north t5g t5f)
+	(north t7c t7b)
+	(north t2i t2h)
+	(north t1i t1h)
+	(north t6d t6c)
+	(north t2e t2d)
+	(north t2d t2c)
+	(north t3e t3d)
+	(north t7b t7a)
+	(north t0b t0a)
+	(north t0e t0d)
+	(north t5d t5c)
+	(north t3f t3e)
+	(north t0d t0c)
+	(north t7j t7i)
+	(north t9f t9e)
+	(north t0g t0f)
+	(north t9i t9h)
+	(north t6h t6g)
+	(north t2j t2i)
+	(north t3d t3c)
+	(north t3j t3i)
+	(north t9g t9f)
+	(north t1j t1i)
+	(north t6j t6i)
+	(north t4d t4c)
+	(north t1d t1c)
+	(north t9c t9b)
+	(north t1f t1e)
+	(north t9h t9g)
+	(north t6b t6a)
+	(north t5h t5g)
+	(north t0j t0i)
+	(north t7e t7d)
+	(north t0h t0g)
+	(north t3c t3b)
+	(north t4c t4b)
+	(north t8c t8b)
+	(north t4e t4d)
+	(north t8h t8g)
+	(food food1)
+	(west t4a t3a)
+	(west t3g t2g)
+	(west t8h t7h)
+	(west t4f t3f)
+	(west t5e t4e)
+	(west t9d t8d)
+	(west t4g t3g)
+	(west t5j t4j)
+	(west t5b t4b)
+	(west t3a t2a)
+	(west t3b t2b)
+	(west t4j t3j)
+	(west t5h t4h)
+	(west t2j t1j)
+	(west t5i t4i)
+	(west t5a t4a)
+	(west t1h t0h)
+	(west t8c t7c)
+	(west t7j t6j)
+	(west t9a t8a)
+	(west t2a t1a)
+	(west t7f t6f)
+	(west t9i t8i)
+	(west t7h t6h)
+	(west t7g t6g)
+	(west t6d t5d)
+	(west t6f t5f)
+	(west t8d t7d)
+	(west t7a t6a)
+	(west t6a t5a)
+	(west t2d t1d)
+	(west t1e t0e)
+	(west t8e t7e)
+	(west t7e t6e)
+	(west t9b t8b)
+	(west t4i t3i)
+	(west t1f t0f)
+	(west goal_tile0 t1c)
+	(west t6e t5e)
+	(west t6i t5i)
+	(west t1b t0b)
+	(west t4h t3h)
+	(west t1j t0j)
+	(west t1c t0c)
+	(west t8i t7i)
+	(west t1g t0g)
+	(west t2b t1b)
+	(west t2g t1g)
+	(west t9j t8j)
+	(west t3h t2h)
+	(west t9f t8f)
+	(west t8j t7j)
+	(person person0)
+	(empty t3a)
+	(empty t0g)
+	(empty t1e)
+	(empty t7a)
+	(empty t0c)
+	(empty t8e)
+	(empty t1a)
+	(empty t9g)
+	(empty t3i)
+	(empty t8a)
+	(empty t6d)
+	(empty t9c)
+	(empty t3e)
+	(empty t5d)
+	(empty t3f)
+	(empty t4d)
+	(empty t5h)
+	(empty t2b)
+	(empty t8i)
+	(empty t3b)
+	(empty t0j)
+	(empty t4h)
+	(empty t1j)
+	(empty t2f)
+	(empty t6h)
+	(empty t7b)
+	(empty t0f)
+	(empty t1f)
+	(empty t9d)
+	(empty t2j)
+	(empty t7f)
+	(empty t0b)
+	(empty t8d)
+	(empty t1b)
+	(empty t4c)
+	(empty t5a)
+	(empty t6g)
+	(empty t4g)
+	(empty t5e)
+	(empty t2a)
+	(empty t6c)
+	(empty t3g)
+	(empty t9h)
+	(empty t5i)
+	(empty t2e)
+	(empty t8h)
+	(empty t3c)
+	(empty t0i)
+	(empty t2i)
+	(empty t7c)
+	(empty t0e)
+	(empty t8g)
+	(empty t1g)
+	(empty t9e)
+	(empty t7e)
+	(empty t7g)
+	(empty t0a)
+	(empty t8c)
+	(empty t1c)
+	(empty t9a)
+	(empty t4b)
+	(empty goal_tile0)
+	(empty t6f)
+	(empty t3d)
+	(empty t4f)
+	(empty t5f)
+	(empty t6b)
+	(empty t7h)
+	(empty t9i)
+	(empty t4j)
+	(empty t1h)
+	(empty t5j)
+	(empty t2d)
+	(empty t0h)
+	(empty t1d)
+	(empty t2h)
+	(empty t5b)
+	(empty t6j)
+	(empty t0d)
+	(empty t8f)
+	(empty t9f)
+	(empty t3h)
+	(empty t4i)
+	(empty t8b)
+	(empty t6e)
+	(empty t9b)
+	(empty t4a)
+	(empty t3j)
+	(empty t5c)
+	(empty t6a)
+	(empty t4e)
+	(empty t5g)
+	(empty t2c)
+	(empty t8j)
+	(empty t7i)
+	(empty t9j)
+	(empty t7j)
+	(empty t1i)
+	(empty t6i)
+	(empty t2g)
+	(empty t7d)
+	(at person0 t9g)
+	(east t3h t4h)
+	(east t0c t1c)
+	(east t7c t8c)
+	(east t0b t1b)
+	(east t3j t4j)
+	(east t4e t5e)
+	(east t8f t9f)
+	(east t2h t3h)
+	(east t2g t3g)
+	(east t2b t3b)
+	(east t0g t1g)
+	(east t8i t9i)
+	(east t0f t1f)
+	(east t6e t7e)
+	(east t8b t9b)
+	(east t6j t7j)
+	(east t6a t7a)
+	(east t7h t8h)
+	(east t6f t7f)
+	(east t5a t6a)
+	(east t5e t6e)
+	(east t3g t4g)
+	(east t7j t8j)
+	(east t3a t4a)
+	(east t4j t5j)
+	(east t8d t9d)
+	(east t1c goal_tile0)
+	(east t8j t9j)
+	(east t5i t6i)
+	(east t6g t7g)
+	(east t4h t5h)
+	(east t3f t4f)
+	(east t4i t5i)
+	(east t7e t8e)
+	(east t4a t5a)
+	(east t5f t6f)
+	(east t1b t2b)
+	(east t7d t8d)
+	(east t5d t6d)
+	(east t0e t1e)
+	(east t1d t2d)
+	(east t3i t4i)
+	(east t7i t8i)
+	(east t4b t5b)
+	(east t0j t1j)
+	(east t1a t2a)
+	(east t1g t2g)
+	(east t0h t1h)
+	(east t1j t2j)
+	(east t6h t7h)
+	(east t2a t3a)
+	(east t8a t9a)
+	(south t1i t1j)
+	(south t0d t0e)
+	(south t9f t9g)
+	(south t7f t7g)
+	(south t8f t8g)
+	(south t4f t4g)
+	(south t9d t9e)
+	(south t5f t5g)
+	(south t3e t3f)
+	(south t3d t3e)
+	(south t4d t4e)
+	(south t0f t0g)
+	(south t4c t4d)
+	(south t7b t7c)
+	(south t2d t2e)
+	(south t1c t1d)
+	(south t7i t7j)
+	(south t1h t1i)
+	(south t3i t3j)
+	(south t9h t9i)
+	(south t0a t0b)
+	(south t0c t0d)
+	(south t5c t5d)
+	(south t6a t6b)
+	(south t9g t9h)
+	(south t2h t2i)
+	(south t7a t7b)
+	(south t2c t2d)
+	(south t6c t6d)
+	(south t8b t8c)
+	(south t0i t0j)
+	(south t9e t9f)
+	(south t9b t9c)
+	(south t8g t8h)
+	(south t7d t7e)
+	(south t2i t2j)
+	(south t3c t3d)
+	(south t6b t6c)
+	(south t1e t1f)
+	(south t2e t2f)
+	(south t5b t5c)
+	(south t0g t0h)
+	(south t9a t9b)
+	(south t4b t4c)
+	(south t5g t5h)
+	(south t6i t6j)
+	(south t3b t3c)
+	(south t6g t6h)
+            )
+    (:goal
+        (and (has person0 food1))
+        )
+    )
+    
