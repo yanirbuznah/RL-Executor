@@ -4,9 +4,8 @@ import os
 import random
 import sys
 import json
-import time
 import datetime
-
+from config_file import *
 import numpy as np
 from pddlsim.executors.executor import Executor
 from pddlsim.local_simulator import LocalSimulator
@@ -26,9 +25,9 @@ class RLExecutor(Executor):
         self.policy_file = policy_file
         self.start_time = datetime.datetime.now()
         self.visited ={}
-        self.learning_rate = 0.9
-        self.gamma = 0.9
-        self.epsilon_greedy = 1
+        self.learning_rate = LEARNING_RATE
+        self.gamma = GAMMA
+        self.epsilon_greedy = EPSILON_GREEDY
         self.initialize_Q_table(policy_file)
         self.last_option= ""
         if flag == "-L":
@@ -45,7 +44,11 @@ class RLExecutor(Executor):
                 self.data[block[0]] = {}
             self.visited[block[0]] = 0.9
             self.data['cheese'] = []
-        self.k_epslion = 1-(1/(float(len(self.data))))
+
+        if K_EPSILON < 0:
+            self.k_epslion = 1-(1/(float(len(self.data))))
+        else:
+            self.k_epslion = K_EPSILON
 
 
     def next_action(self):
@@ -56,11 +59,8 @@ class RLExecutor(Executor):
             self.update_Q_table(options)
             break
         if self.services.goal_tracking.reached_all_goals():
-
             if self.learning:
                 self.save_Q_table_to_file(self.location)
-                # if (datetime.datetime.now() - self.start_time).total_seconds() <180:
-                #             return self.pick_best_option(options)
             return None
 
         if len(options) == 0:
@@ -96,35 +96,25 @@ class RLExecutor(Executor):
         if not self.data[self.location]:
             self.data[self.location] = [dict([i,0] for i in options),1]
             return self.get_random_option(options)
-        # if self.first_learning:
-        #     return self.get_random_option(options)
         if self.learning:
-            # if np.random.uniform() < self.epsilon_greedy:
-            #     self.epsilon_greedy*=self.k_epslion
-            #     return self.get_random_option(options)
-            if np.random.uniform()<self.data[self.location][1]:
-                self.data[self.location][1]*=self.k_epslion
-                return self.get_random_option(options)
-
+            if PERSONAL_EPSILON:
+                if np.random.uniform()<self.data[self.location][1]:
+                    self.data[self.location][1]*=self.k_epslion
+                    return self.get_random_option(options)
             else:
-                    max_wight = 0
-                    max_option = None
-                    for option in self.data[self.location][0]:
-                        x = self.data[self.location][0][option]
-                        if x >= max_wight or max_option is None:
-                            max_wight = x
-                            max_option = option
-                    return max_option
+                if np.random.uniform() < self.epsilon_greedy:
+                    self.epsilon_greedy*=self.k_epslion
+                    return self.get_random_option(options)
+        max_wight = 0
+        max_option = None
+        for option in self.data[self.location][0]:
+            x = self.data[self.location][0][option]
+            if x >= max_wight or max_option is None:
+                max_wight = x
+                max_option = option
+        return max_option
 
-        else:
-                max_wight = 0
-                max_option = None
-                for option in self.data[self.location][0]:
-                    x = self.data[self.location][0][option]
-                    if x >= max_wight or max_option is None:
-                        max_wight = x
-                        max_option = option
-                return max_option
+
     def get_random_option(self, options):
         i = random.randint(0, len(options) - 1)
         return options[i]
@@ -156,21 +146,5 @@ class RLExecutor(Executor):
             self.first_learning = True
             self.data = {}
 
-
-
-
-
-
-x = LocalSimulator().run(domain, "maze_problem.pddl", RLExecutor("-L",policy_file))
-print x
-
-time.sleep(5)
-
-for i in range(1,10):
-    LocalSimulator().run(domain, "maze_problem"+str(i)+".pddl", RLExecutor(flag,policy_file))
-y = LocalSimulator().run(domain, "maze_problem.pddl", RLExecutor("-E",policy_file))
-
-
-print "Before learning:",x.total_actions
-print "After learning:" ,y.total_actions
-print "total improvement:", float(x.total_actions/y.total_actions)*100,"%"
+agent = LocalSimulator().run(domain,problem, RLExecutor(flag, policy_file))
+print agent
