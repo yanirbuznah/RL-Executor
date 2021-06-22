@@ -1,12 +1,10 @@
 # Name: Yanir Buznah
 # ID: 207631466
 import os
-import random
 import sys
 import json
-import datetime
-from config_file import *
 import numpy as np
+from config_file import *
 from pddlsim.executors.executor import Executor
 from pddlsim.local_simulator import LocalSimulator
 
@@ -23,7 +21,6 @@ class RLExecutor(Executor):
     def __init__(self, flag, policy_file):
         super(RLExecutor, self).__init__()
         self.policy_file = policy_file
-        self.start_time = datetime.datetime.now()
         self.visited ={}
         self.learning_rate = LEARNING_RATE
         self.gamma = GAMMA
@@ -116,7 +113,7 @@ class RLExecutor(Executor):
 
 
     def get_random_option(self, options):
-        i = random.randint(0, len(options) - 1)
+        i = np.random.randint(0, len(options) - 1)
         return options[i]
 
 
