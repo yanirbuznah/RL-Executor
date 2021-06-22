@@ -1,5 +1,4 @@
-# Name: Yanir Buznah
-# ID: 207631466
+
 import os
 import sys
 import json
