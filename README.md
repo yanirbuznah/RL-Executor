@@ -4,9 +4,9 @@ The RL-Executor uses Q-learning policy with hyperparameters epsilon,gamma,k-epsi
 all of the parameters can be easily changed with the config file.
 # Running
 The Executor runs with the following commands:
-for learning phase - python my_executive.py -L <domain_file> <problem_file> POLICYFILE 
-when domain_file and problem_file are pddl files and POLICYFILE is the name of the file with the q-table (the executor create the file if not exists, in the first time its recommended to enter a new name)
-it is strongly recommended to run the learning phase program at least 10 times.
+<br />for learning phase - python my_executive.py -L <domain_file> <problem_file> POLICYFILE <br />
+when domain_file and problem_file are pddl files and POLICYFILE is the name of the file with the q-table (the executor create the file if not exists, in the first time its recommended to enter a new name)<br />
+it is strongly recommended to run the learning phase program at least 10 times.<br />
 for execute phase - python my_executive.py -E <domain_file> <problem_file> POLICYFILE
 # Config file
 ## In the config file there are 5 variables:
