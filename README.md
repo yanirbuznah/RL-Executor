@@ -8,7 +8,7 @@ The Executor runs with the following commands:
 when domain_file and problem_file are pddl files and POLICYFILE is the name of the file with the q-table (the executor create the file if not exists, in the first time its recommended to enter a new name)<br />
 it is strongly recommended to run the learning phase program at least 10 times.<br />
 for execute phase - python my_executive.py -E <domain_file> <problem_file> POLICYFILE
-# Config file
+# Config File
 ## In the config file there are 5 variables:
 * EPSILON_GREEDY:
 <br /> Initializing the variable epsilon, and in the learning phase the executor chooses an action randomly with a probabilty of epsilon%
@@ -23,3 +23,7 @@ A factor approaching 1 will make it strive for a long-term high reward.
 * PERSONAL_EPSILON:
 <br /> True-> every state has its own epsilon paramater, so the more times the executor has been in the same state the less likely he is to choose randomly.
 <br /> False-> There is one parameter thay starts over in every learning phase
+#Imports
+Note! In the agent's run, he uses the following imports.<br />
+Most of them come with a standard Python environment (or within the files here), But you will have to download some of the libraries yourself.<br />
+![image](https://user-images.githubusercontent.com/65356872/122879457-94570d00-d341-11eb-9be1-11d1ac9ec3fd.png)
