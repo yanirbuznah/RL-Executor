@@ -113,7 +113,7 @@ class RLExecutor(Executor):
 
 
     def get_random_option(self, options):
-        i = np.random.randint(0, len(options) - 1)
+        i = np.random.randint(0, len(options))
         return options[i]
 
 
@@ -143,5 +143,5 @@ class RLExecutor(Executor):
             self.first_learning = True
             self.data = {}
 
-agent = LocalSimulator().run(domain,problem, RLExecutor(flag, policy_file))
-print agent
+e = LocalSimulator().run(domain,problem, RLExecutor(flag, policy_file))
+print e
